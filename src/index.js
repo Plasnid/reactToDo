@@ -8,11 +8,11 @@ function TaskForm(props){
             <h2>Add a Task</h2>
             <fieldset>
                 <label htmlFor="tName">Task Name:</label>
-                <input id="tName" name="tName" type="text" required />
+                &nbsp;<input id="tName" name="tName" type="text" required />
             </fieldset>
             <fieldset>
                 <label htmlFor="tDesc">Task Description:</label>
-                <input id="tDesc" name="tDesc" type="text" required />
+                &nbsp;<input id="tDesc" name="tDesc" type="text" required />
             </fieldset>
             <input type="submit" />
         </form>
@@ -29,7 +29,7 @@ function Task(props){
         <li>
             <input type="checkbox" onClick={props.onClick} checked={props.tDone}/>
             {props.tName}: {props.tDesc}
-            <button onClick={props.delOnClick}>Delete Task</button>
+            &nbsp;<button onClick={props.delOnClick}>Delete Task</button>
         </li>
     )
 }
