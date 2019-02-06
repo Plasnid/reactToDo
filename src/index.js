@@ -20,6 +20,11 @@ function TaskForm(props){
 }
 
 function Task(props){
+    /*
+        Task is a functional component
+        -it has a checkbox which responds to onClick by calling props.onClick, it has a checked status of props.tDone
+        -it has a button which responds to props.delOnClick
+    */
     return (
         <li>
             <input type="checkbox" onClick={props.onClick} checked={props.tDone}/>
@@ -30,6 +35,17 @@ function Task(props){
 }
 
 class TaskList extends React.Component{
+    /*
+        -TaskList returns a <ul></ul>
+        -TaskList gets a list of tasks and for each task returns a <Task/>
+        -it gives each task:
+            -a number(i) which is used as a key and an array position
+            -delOnClick(i) which will delete the task
+            -onClick(i) which will register a click on a task
+            -tName:  the name of the the task
+            -tDesc:  the task description
+            -tDone:  the status of the task(true or false)
+    */
     render(){
         return (
             <ul>
@@ -51,76 +67,79 @@ class TaskList extends React.Component{
 }
 
 class App extends React.Component{
+    //we add the constructor so the state can live in the App component
     constructor(props){
         super(props);
         this.state = {
             tasks:[
                 {
-                    taskName: "task1",
-                    taskDesc: "do thing 1",
+                    taskName: "eat lunch",
+                    taskDesc: "a nice bullet ant sandwich",
                     completed: false,
                 },
                 {
-                    taskName: "task2",
-                    taskDesc: "do thing 2",
+                    taskName: "defend self",
+                    taskDesc: "fart lungs onto attacker",
                     completed: false,
                 },
                 {
-                    taskName: "task3",
-                    taskDesc: "do thing 3",
+                    taskName: "mow ceiling",
+                    taskDesc: "mow  the indoor grass",
                     completed: false,
                 },
                 {
-                    taskName: "task4",
-                    taskDesc: "do thing 4",
+                    taskName: "baking",
+                    taskDesc: "bake some bread",
                     completed: false,
                 },
                 {
-                    taskName: "task5",
-                    taskDesc: "do thing 5",
+                    taskName: "get coal",
+                    taskDesc: "visit the coal mine",
                     completed: false,
                 },
                 {
-                    taskName: "task6",
-                    taskDesc: "do thing 6",
+                    taskName: "feign insanity",
+                    taskDesc: "make loud borking sounds in public",
                     completed: false,
                 },
                 {
-                    taskName: "task7",
-                    taskDesc: "do thing 7",
+                    taskName: "perfect hooping",
+                    taskDesc: "attempt hula hooping with a lead hula hoop",
                     completed: false,
                 },
                 {
-                    taskName: "task8",
-                    taskDesc: "do thing 8",
+                    taskName: "swim the dog",
+                    taskDesc: "put the dog in scuba gear and walk them underwater",
                     completed: false,
                 },
                 {
-                    taskName: "task9",
-                    taskDesc: "do thing 9",
+                    taskName: "walk the fish",
+                    taskDesc: "give the fish SCABA gear and fake legs",
                     completed: false,
                 },
                 {
-                    taskName: "task10",
-                    taskDesc: "do thing 10",
+                    taskName: "create hat",
+                    taskDesc: "make many tin foil hats to keep the aliens away",
                     completed: false,
                 },
             ]
         }
     }
 
+    //makes a copy of the tasks, swaps the completed status of the task clicked, then saves out the tasks
     toggleCompletion(i){
         let newTasks = [...this.state.tasks];
         newTasks[i].completed = !newTasks[i].completed;
         this.setState({tasks: newTasks});
     }
-
+    //makes a copy of the tasks, removes the task being deleted, then saves out the tasks
     removeElement(i){
         let newTasks = [...this.state.tasks];
         newTasks.splice(i,1);
         this.setState({tasks: newTasks});
     }
 
+    //prevents reload, takes in the formData, makes a new list of tasks, and adds the formData, saves tasks
     addTask(e){
         e.preventDefault();
         let formSource = new FormData(e.target);
@@ -129,6 +148,7 @@ class App extends React.Component{
         e.target.reset();
     }
 
+    //if there are tasks, it uses array function every, checks if all tasks are done
     checkForCompletion(){
         if(this.state.tasks.length>0){
             let allDone = this.state.tasks.every(task => task.completed===true);
@@ -140,6 +160,15 @@ class App extends React.Component{
         return 'No tasks listed!';
     }
 
+    /*renders the app to the screen, puts app in a div, adds Form and TaskList
+        -TaskForm gets
+            -a function for adding tasks(addTask), and names its prop "Task Addition"
+        -TaskList gets
+            -tasks: a list of tasks
+            -a couple of functions for dealing with tasks
+            -delOnClick: a function(removeElement) for removing an element
+            -onClick: a function(toggleCompletion) for toggling task completion
+    */
     render(){
         return (
             <div id="app_home">
