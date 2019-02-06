@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function TaskForm(props){
+    //below we have the form, with props.taskAddAction as our submit action
     return(
         <form onSubmit={props.taskAddAction}>
             <h2>Add a Task</h2>
